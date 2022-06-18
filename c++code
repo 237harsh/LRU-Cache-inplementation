@@ -1,0 +1,44 @@
+class Solution{
+public:
+    int pageFaults(int n, int s, int arr[]){
+         
+         int f=0;
+         unordered_set<int>st;
+         unordered_map<int ,int>mp;
+         
+         for(int i=0;i<n;i++)
+         {
+             mp[arr[i]]=i;
+             if(st.size()<s)
+             {
+                 if(st.find(arr[i])==st.end())
+                 {
+                     st.insert(arr[i]);
+                     f++;
+                 }
+             }
+             else
+             {
+                 if(st.find(arr[i])==st.end())
+                 {
+                     int min=INT_MAX,a; 
+                     for(auto x:st)
+                     {
+                         if(mp[x]<min)
+                         {
+                             min=mp[x];
+                             a=x;
+                         }
+                     }
+                     
+                     st.erase(a);
+                    st.insert(arr[i]);
+                    f++;
+                 }
+             }
+         }
+         
+         return f;
+         return 0;
+    }
+};
